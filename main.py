@@ -5,11 +5,11 @@ import os
 
 
 @tool
-def get_stock_price(symbol: str) -> float:
-    """Get the current stock price for a given symbol."""
-    url = f"https://api.example.com/stocks/{symbol}/price"
+def get_conversion_factor(base_currency: str, target_currency: str) -> float:
+    """Get the current conversion rate between a given base currency and target currency"""
+    url = f"https://v6 exchangerate-api.com/{os.getenv('EXCHANGE_RATE_API_KEY')}/pair/{base_currency}/{target_currency}"
     response = requests.get(url)
     if response.status_code == 200:
-        return response.json()["price"]
+        return response.json()["rate"]
     else:
-        raise Exception(f"Failed to get stock price for {symbol}")
+        raise Exception(f"Failed to get conversion rate for {base_currency} to {target_currency}")
