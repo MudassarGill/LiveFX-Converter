@@ -49,12 +49,16 @@ def get_llm():
         except Exception as e:
             print(f"Warning: Groq initialization failed ({e}). Falling back to HuggingFace.")
     
-    from langchain_huggingface import ChatHuggingFace
-    return ChatHuggingFace(
-        model_name="meta-llama/Meta-Llama-3.1-8B-Instruct",
-        temperature=0,
-        api_key=os.getenv("HUGGINGFACE_API_KEY")
+    from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
+    
+    # HuggingFace requires an LLM object passed into ChatHuggingFace
+    llm_endpoint = HuggingFaceEndpoint(
+        repo_id="meta-llama/Meta-Llama-3.1-8B-Instruct",
+        huggingfacehub_api_token=os.getenv("HUGGINGFACE_API_KEY"),
+        task="text-generation",
     )
+    
+    return ChatHuggingFace(llm=llm_endpoint)
 
 
 def process_chat(query: str) -> str:

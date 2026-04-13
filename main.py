@@ -7,13 +7,14 @@ def main():
     # Start the FastAPI backend via uvicorn
     # using subprocess.Popen so it runs in the background
     backend_process = subprocess.Popen(
-        [sys.executable, "-m", "uvicorn", "api:app", "--host", "127.0.0.1", "--port", "8000"],
+        [sys.executable, "-m", "uvicorn", "api:app", "--host", "localhost", "--port", "8001"],
         stdout=sys.stdout,
         stderr=sys.stderr
     )
 
-    # Give the backend a couple of seconds to spin up completely
-    time.sleep(2)
+    # Give the backend a bit more time to load Langchain and models
+    print("Waiting for backend to initialize (5s)...")
+    time.sleep(5)
 
     print("\nStarting Streamlit Frontend...")
     # Start the Streamlit frontend

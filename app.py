@@ -3,7 +3,7 @@ import requests
 import json
 
 # The URL of the FastAPI Backend
-API_URL = "http://127.0.0.1:8000/chat"
+API_URL = "http://localhost:8001/chat"
 
 st.set_page_config(page_title="LiveFX AI Converter", page_icon="💸", layout="centered")
 
