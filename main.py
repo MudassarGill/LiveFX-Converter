@@ -1,4 +1,5 @@
 #create tools
+from langchain_core.messages import HumanMessage
 from langchain.tools import tool
 from langchain_groq import ChatGroq
 from dotenv import load_dotenv
@@ -31,3 +32,11 @@ llm=ChatGroq(
 )
 
 llm_with_tool=llm.bind_tools([get_conversion_factor, convert])
+
+#tool calling
+
+messages=[HumanMessage('what is the conversion rate between USD and PKR? , and base on that can you convert 10 usd to pkr? ')]
+
+ai_message=llm_with_tool.invoke(messages)
+
+print(ai_message)
