@@ -2,6 +2,7 @@
 from langchain_core.messages import HumanMessage
 from langchain.tools import tool
 from langchain_groq import ChatGroq
+from langchain_huggingface import ChatHuggingFace
 from langchain_core.tools import InjectedToolArg
 from langchain_core.messages import HumanMessage,AIMessage
 from typing import Annotated
@@ -15,7 +16,7 @@ load_dotenv()
 @tool
 def get_conversion_factor(base_currency: str, target_currency: str) -> float:
     """Get the current conversion rate between a given base currency and target currency"""
-    url = f"https://v6.exchangerate-api.com/v6/{os.getenv('EXCHANGE_RATE_API_KEY')}/pair/{base_currency}/{target_currency}"
+    url = f"https://v6.exchangerate-api.com/v6/{os.getenv('HUGGINGFACE_API_KEY')}/pair/{base_currency}/{target_currency}"
     response = requests.get(url)
     if response.status_code == 200:
         return response.json()
@@ -29,10 +30,10 @@ def convert(base_currency_value: int, conversion_rate:Annotated[float, InjectedT
 
 #tool binding
 
-llm=ChatGroq(
-    model_name="llama-3.3-70b-versatile",
+llm=ChatHuggingFace(
+    model_name="meta-llama/Meta-Llama-3.1-8B-Instruct",
     temperature=0,
-    api_key=os.getenv("GROQ_API_KEY")
+    api_key=os.getenv("HUGGINGFACE_API_KEY")
 )
 
 llm_with_tool=llm.bind_tools([get_conversion_factor, convert])
