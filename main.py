@@ -1,8 +1,11 @@
 #create tools
 from langchain.tools import tool
+from langchain_groq import ChatGroq
+from dotenv import load_dotenv
 import requests
 import os
 
+load_dotenv()
 
 @tool
 def get_conversion_factor(base_currency: str, target_currency: str) -> float:
@@ -19,4 +22,12 @@ def convert(base_currency_value: int, conversion_rate:float) -> float:
     return base_currency_value * conversion_rate
 
 
-print(convert(100, 277.50))
+#tool binding
+
+llm=ChatGroq(
+    model_name="llama-3.3-70b-versatile",
+    temperature=0,
+    api_key=os.getenv("GROQ_API_KEY")
+)
+
+llm_with_tool=llm.bind_tools([get_conversion_factor, convert])
