@@ -53,3 +53,5 @@ for tool_call in ai_message.tool_calls:
         tool_call['args']['conversion_rate']=converion_rate
         tool_message2=convert.invoke(tool_call)
         messages.append(tool_message2)
+final_response=llm_with_tool.invoke(messages)
+print(final_response.content)
