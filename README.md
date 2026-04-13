@@ -1,4 +1,5 @@
 # LiveFX-Converter
+**Author: [MudassarGill](https://github.com/MudassarGill)**
 
 A real-time foreign exchange (FX) converter that uses live APIs to convert currencies instantly with high accuracy. The project features an AI agent powered by `Langchain`, dynamically choosing between `Groq` and `Hugging Face` for inference. It has a beautiful **Streamlit UI** connected to a robust **FastAPI backend**.
 
@@ -29,7 +30,7 @@ A real-time foreign exchange (FX) converter that uses live APIs to convert curre
 
 2. **Install all required dependencies:**
    ```bash
-   pip install fastapi uvicorn streamlit langchain langchain-groq langchain-huggingface python-dotenv requests
+   pip install -r requirements.txt
    ```
 
 ## Running the Application

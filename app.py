@@ -7,7 +7,7 @@ API_URL = "http://127.0.0.1:8000/chat"
 
 st.set_page_config(page_title="LiveFX AI Converter", page_icon="💸", layout="centered")
 
-st.title("💸 LiveFX AI Converter")
+st.title("LiveFX AI Converter")
 st.write("Ask natural language questions about currency conversion! For example: `Convert 15 USD to PKR`.")
 
 if "messages" not in st.session_state:
