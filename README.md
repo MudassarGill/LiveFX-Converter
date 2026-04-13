@@ -21,10 +21,16 @@ A real-time foreign exchange (FX) converter that uses live APIs to convert curre
 
 ## Installation
 
-Ensure all required Python dependencies are installed. You can install them by running:
-```bash
-pip install fastapi uvicorn streamlit langchain langchain-groq langchain-huggingface python-dotenv requests
-```
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/MudassarGill/LiveFX-Converter.git
+   cd LiveFX-Converter
+   ```
+
+2. **Install all required dependencies:**
+   ```bash
+   pip install fastapi uvicorn streamlit langchain langchain-groq langchain-huggingface python-dotenv requests
+   ```
 
 ## Running the Application
 
