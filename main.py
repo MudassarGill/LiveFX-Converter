@@ -8,6 +8,7 @@ from typing import Annotated
 from dotenv import load_dotenv
 import requests
 import os
+import json
 
 load_dotenv()
 
@@ -41,5 +42,14 @@ llm_with_tool=llm.bind_tools([get_conversion_factor, convert])
 messages=[HumanMessage('what is the conversion rate between USD and PKR? , and base on that can you convert 10 usd to pkr? ')]
 
 ai_message=llm_with_tool.invoke(messages)
+messages.append(ai_message)
 
-print(ai_message.tool_calls)
+for tool_call in ai_message.tool_calls:
+    if tool_call['name']=='get_conversion_factor':
+        tool_message1=get_conversion_factor.invoke(tool_call)
+        converion_rate=json.loads(tool_message1.content)['conversion_rate']
+        messages.append(tool_message1)
+    if tool_call['name']=='convert':
+        tool_call['args']['conversion_rate']=converion_rate
+        tool_message2=convert.invoke(tool_call)
+        messages.append(tool_message2)
