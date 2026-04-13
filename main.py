@@ -2,6 +2,9 @@
 from langchain_core.messages import HumanMessage
 from langchain.tools import tool
 from langchain_groq import ChatGroq
+from langchain_core.tools import InjectedToolArg
+from langchain_core.messages import HumanMessage,AIMessage
+from typing import Annotated
 from dotenv import load_dotenv
 import requests
 import os
@@ -18,7 +21,7 @@ def get_conversion_factor(base_currency: str, target_currency: str) -> float:
     else:
         raise Exception(f"Failed to get conversion rate for {base_currency} to {target_currency}")
 @tool
-def convert(base_currency_value: int, conversion_rate:float) -> float:
+def convert(base_currency_value: int, conversion_rate:Annotated[float, InjectedToolArg]) -> float:
     """Convert a given amount from a base currency to a target currency using the conversion rate"""
     return base_currency_value * conversion_rate
 
@@ -39,4 +42,4 @@ messages=[HumanMessage('what is the conversion rate between USD and PKR? , and b
 
 ai_message=llm_with_tool.invoke(messages)
 
-print(ai_message)
+print(ai_message.tool_calls)
